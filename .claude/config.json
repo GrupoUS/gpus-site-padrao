@@ -1,5 +1,4 @@
 {
-  "$schema": "./config.schema.json",
   "project": {
     "name": "gp-us-harmonic-pascal",
     "displayName": "GP-US Harmonic Pascal",
