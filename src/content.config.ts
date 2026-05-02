@@ -1,4 +1,4 @@
-import { defineCollection } from "astro:content";
+import type { defineCollection } from "astro:content";
 
 export const collections = {} as Record<
 	string,

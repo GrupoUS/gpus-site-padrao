@@ -45,7 +45,13 @@ Pré-commit: `bun run prepare` instala o `lefthook`. **Nunca** `--no-verify`.
 4. Atualize o título e a tagline deste `README.md` para o novo projeto.
 5. Crie `.claude/overlay/<slug>/CLAUDE-overlay.md` com o stub padrão (use `.claude/overlay/gp-us-harmonic-pascal/CLAUDE-overlay.md` como modelo canônico).
 6. Atualize `astro.config.mjs::site` para a nova URL.
-7. Verifique:
+7. **Atualize os assets de host** (apontam para a URL canônica e precisam mudar a cada projeto):
+   - `public/robots.txt` → linha `Sitemap:` para `https://<nova-url>/sitemap-index.xml`.
+   - `public/favicon.svg` → comentário identificador (`<!-- ... Stylized Monogram ... -->`); substitua por SVG do novo projeto se houver identidade visual própria.
+   - `public/favicon.ico` + `public/favicon-96.png` → substitua por ícones do novo projeto se houver identidade visual própria.
+   - `src/pages/index.astro` → `<title>` e qualquer copy placeholder.
+   - `src/styles/global.css` → ajuste tokens `@theme` se a identidade visual mudar (vide seção *Tema e design*).
+8. Verifique:
    ```bash
    bun install
    bun run check
