@@ -1,0 +1,109 @@
+---
+import { getCollection } from "astro:content";
+import AboutPreview from "../components/home/AboutPreview.astro";
+import CTASection from "../components/home/CTASection.astro";
+import Hero from "../components/home/Hero.astro";
+import { JourneyTimeline } from "../components/home/JourneyTimeline.tsx";
+import ProductsGrid from "../components/home/ProductsGrid.astro";
+import StatsSection from "../components/home/StatsSection.astro";
+import { TestimonialCarousel } from "../components/landing/TestimonialCarousel.tsx";
+import Layout from "../layouts/Layout.astro";
+
+const products = await getCollection("products");
+
+/* ── Journey Timeline data ── */
+const canonicalJourney = [
+	{
+		slug: "curso-auriculo",
+		stage: "01",
+		eyebrow: "Entrada",
+		summary:
+			"Entrada acessível para ganhar repertório técnico e colocar a primeira oferta em movimento.",
+	},
+	{
+		slug: "comunidade-us",
+		stage: "02",
+		eyebrow: "Comunidade",
+		summary:
+			"Continuidade, networking e atualização recorrente para manter execução, proximidade e referência de mercado.",
+	},
+	{
+		slug: "trintae3",
+		stage: "03",
+		eyebrow: "Formação sólida",
+		summary:
+			"Aprofundamento técnico e base de negócios para sair do operacional e construir autoridade.",
+	},
+	{
+		slug: "mentoria-black-neon",
+		stage: "04",
+		eyebrow: "Escala de negócio",
+		summary:
+			"Gestão, time, faturamento e previsibilidade para transformar uma boa operação em empresa escalável.",
+	},
+	{
+		slug: "otb",
+		stage: "05",
+		eyebrow: "Elite global",
+		summary:
+			"Etapa internacional para reconhecimento, networking premium e repertório de business em outro nível.",
+	},
+] as const;
+
+const complementaryExperienceSlugs = ["neon-dash", "na-mesa-certa"] as const;
+const productsBySlug = new Map(
+	products.map((entry) => [entry.data.slug, entry.data]),
+);
+
+const stages = canonicalJourney.map((item) => {
+	const product = productsBySlug.get(item.slug);
+	if (!product)
+		throw new Error(
+			`JourneyTimeline: produto ausente para slug "${item.slug}"`,
+		);
+	return {
+		slug: item.slug,
+		stage: item.stage,
+		eyebrow: item.eyebrow,
+		summary: item.summary,
+		productName: product.name,
+		tagline: product.tagline,
+		pageHref: product.externalSiteUrl ?? `/${product.slug}`,
+		iconName: product.icon,
+	};
+});
+
+const complementaryExperiences = complementaryExperienceSlugs
+	.map((slug) => productsBySlug.get(slug))
+	.filter((p): p is NonNullable<typeof p> => p !== undefined)
+	.map((product) => ({
+		name: product.name,
+		href: product.externalSiteUrl ?? `/${product.slug}`,
+	}));
+
+/* ── Testimonials data ── */
+const homeTestimonials = products
+	.flatMap((p) =>
+		p.data.testimonials.map((t) => ({
+			name: t.name,
+			role: `${t.role} (${p.data.name})`,
+			quote: t.quote,
+		})),
+	)
+	.slice(0, 9);
+---
+
+<Layout
+	title="Grupo US — Formação e negócios em saúde estética avançada"
+	description="Cursos, pós, mentoria e comunidade com a Dra. Sacha Gualberto: trilha da entrada à escala de negócio. Veja os programas do ecossistema e o próximo passo para a sua carreira."
+	ogImage="/og/home.png"
+	activeNav="home"
+>
+	<Hero />
+	<ProductsGrid />
+	<JourneyTimeline client:visible stages={stages} complementary={complementaryExperiences} />
+	<TestimonialCarousel client:visible testimonials={homeTestimonials} />
+	<StatsSection />
+	<AboutPreview />
+	<CTASection />
+</Layout>

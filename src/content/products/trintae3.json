@@ -1,0 +1,107 @@
+{
+	"name": "TRINTAE3",
+	"slug": "trintae3",
+	"tagline": "A única Pós-graduação reconhecida pelo MEC que também é Mentoria. Técnica avançada, gestão de negócios e acompanhamento real para você se tornar referência.",
+	"description": "Pós-graduação reconhecida pelo MEC com mentoria prática: técnica avançada, gestão de clínica e acompanhamento para enfermeiros, biomédicos, farmacêuticos e fisioterapeutas que buscam referência em estética.",
+	"type": "Pós-graduação + Mentoria",
+	"audience": "Enfermeiros, biomédicos, farmacêuticos e fisioterapeutas",
+	"icon": "GraduationCap",
+	"image": "/images/products/trintae3.webp",
+	"externalSiteUrl": "https://trintae3.drasacha.com.br/",
+	"order": 1,
+	"hero": {
+		"headline": "Nós entregamos o COMO: técnica, gestão e mentoria em um só programa",
+		"subheadline": "A Pós-graduação com selo MEC que forma referências — com cases reais, mentoria individual e acompanhamento do primeiro módulo ao faturamento"
+	},
+	"painPoints": [
+		{
+			"icon": "TrendingDown",
+			"title": "Renda limitada na clínica tradicional",
+			"description": "Você se formou, trabalha duro, mas o faturamento não cresce. A clínica convencional sozinha não paga o investimento que você fez na sua carreira."
+		},
+		{
+			"icon": "BookX",
+			"title": "Falta de habilidades em gestão e negócios",
+			"description": "A faculdade ensinou técnica, mas não ensinou a precificar, captar pacientes ou construir autoridade. Você é ótimo profissional, mas não sabe vender seu trabalho."
+		},
+		{
+			"icon": "UserX",
+			"title": "Sem mentoria e sem direcionamento",
+			"description": "Você tenta aprender sozinho, consome conteúdo online, mas não tem quem te guie pelo caminho certo. Falta alguém que já chegou onde você quer chegar."
+		}
+	],
+	"pillars": [
+		{
+			"icon": "BookOpen",
+			"title": "Formação Técnica Avançada",
+			"description": "Grade curricular robusta com as técnicas mais atuais em harmonização facial, bioestimuladores, fios e protocolos combinados — tudo com embasamento científico."
+		},
+		{
+			"icon": "Briefcase",
+			"title": "Mentoria de Negócios",
+			"description": "Acompanhamento individualizado para estruturar sua clínica, definir posicionamento, precificar corretamente e criar estratégias de captação de pacientes premium."
+		},
+		{
+			"icon": "Users",
+			"title": "Networking Premium",
+			"description": "Acesso a uma comunidade exclusiva de profissionais de alto nível, com eventos presenciais, imersões e troca de experiências que aceleram seu crescimento."
+		}
+	],
+	"benefits": [
+		"Título de pós-graduação reconhecido pelo MEC",
+		"Mentoria individual com Dra. Sacha Gualberto e equipe",
+		"Acesso a protocolos validados em mais de 5.000 procedimentos",
+		"Rede de networking com os melhores profissionais do Brasil",
+		"Suporte contínuo após a formação para consolidar resultados"
+	],
+	"differentials": [
+		{
+			"title": "Pós-graduação + Mentoria integradas",
+			"description": "Único programa do mercado que combina a credibilidade de uma pós-graduação acadêmica com o acompanhamento prático de uma mentoria de negócios."
+		},
+		{
+			"title": "Cases reais desde o primeiro módulo",
+			"description": "Você não espera se formar para aplicar. Desde o início, trabalha com pacientes reais sob supervisão direta, construindo portfólio e confiança."
+		},
+		{
+			"title": "Metodologia validada pela Dra. Sacha",
+			"description": "Desenvolvida por quem já formou mais de 5.000 profissionais e construiu uma das maiores referências em saúde estética do Brasil."
+		}
+	],
+	"faqs": [
+		{
+			"question": "Quem pode participar do TRINTAE3?",
+			"answer": "O programa é voltado para profissionais da saúde graduados: enfermeiros, biomédicos, farmacêuticos e fisioterapeutas que desejam atuar ou já atuam na área de estética avançada."
+		},
+		{
+			"question": "Qual a duração do programa?",
+			"answer": "O TRINTAE3 tem duração de 18 meses, com encontros mensais presenciais e acompanhamento online contínuo entre os módulos."
+		},
+		{
+			"question": "O título é reconhecido pelo MEC?",
+			"answer": "Sim. O TRINTAE3 confere título de pós-graduação lato sensu reconhecido pelo MEC, além do certificado de mentoria prática em negócios de saúde estética."
+		},
+		{
+			"question": "Posso parcelar o investimento?",
+			"answer": "Sim. O TRINTAE3 oferece parcelamento em até 24 vezes no cartão de crédito, além de condições especiais para pagamento à vista ou via boleto. Fale com nossa equipe pelo WhatsApp para receber a tabela atualizada de valores e simular o parcelamento ideal para você."
+		}
+	],
+	"cta": {
+		"label": "Quero me inscrever",
+		"url": "https://trintae3.drasacha.com.br/",
+		"whatsappMessage": "Olá, Laura! Quero saber mais sobre o TRINTAE3",
+		"type": "primary"
+	},
+	"testimonials": [
+		{
+			"name": "Dra. Fernanda Oliveira",
+			"role": "Enfermeira Esteta — São Paulo/SP",
+			"quote": "O TRINTAE3 transformou minha carreira. Saí de um faturamento de R$ 8 mil para mais de R$ 40 mil por mês em menos de um ano. A mentoria fez toda a diferença."
+		},
+		{
+			"name": "Dr. Rafael Mendes",
+			"role": "Biomédico Esteticista — Belo Horizonte/MG",
+			"quote": "Já fiz outros cursos, mas nenhum me deu o direcionamento prático que o TRINTAE3 oferece. Hoje tenho lista de espera na clínica e uma equipe estruturada."
+		}
+	]
+}

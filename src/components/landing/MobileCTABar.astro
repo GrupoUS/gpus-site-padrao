@@ -1,0 +1,28 @@
+---
+interface Props {
+	cta: {
+		label: string;
+		url: string;
+	};
+}
+
+const { cta } = Astro.props;
+---
+
+<div
+	class="fixed bottom-0 left-0 right-0 z-50 block border-t border-gold/20 bg-navy/95 backdrop-blur-md md:hidden"
+	style={`padding-bottom: env(safe-area-inset-bottom, 0px)`}
+	role="complementary"
+	aria-label="Ação rápida"
+>
+	<div class="px-4 py-3">
+		<a
+			href={cta.url}
+			target="_blank"
+			rel="noopener noreferrer"
+			class="block w-full rounded-xl bg-gold py-3.5 text-center text-base font-semibold text-navy transition-colors duration-200 hover:bg-gold-light"
+		>
+			{cta.label}
+		</a>
+	</div>
+</div>

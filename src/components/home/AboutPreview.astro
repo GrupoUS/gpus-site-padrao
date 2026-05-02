@@ -1,0 +1,59 @@
+---
+import Button from "../shared/Button.astro";
+---
+
+<section class="px-4 py-24 sm:px-6 lg:py-32">
+	<div class="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
+		<!-- Text Column -->
+		<div data-reveal="left">
+			<span class="inline-block rounded-sm border border-gold/30 bg-navy-light/80 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+				Sobre o Grupo US
+			</span>
+
+			<h2 class="mt-6 font-serif text-3xl font-bold leading-tight text-text-primary md:text-4xl lg:text-5xl">
+				Liderado por quem vive a{" "}
+				<span class="text-gold">transformação</span>
+			</h2>
+
+			<p class="mt-6 text-base leading-relaxed text-text-muted md:text-lg">
+				Sob a liderança da Dra. Sacha Gualberto, o Grupo US reúne formação,
+				mentoria e comunidade para profissionais da saúde que querem crescer em
+				técnica, gestão e reputação. São mais de 5.000 profissionais impactados
+				em 26 estados e 10+ países, com trilhas claras da entrada à escala de
+				negócio.
+			</p>
+
+			<p class="mt-4 text-base leading-relaxed text-text-muted md:text-lg">
+				Nossa visão é formar líderes em saúde estética e negócios — quem domina
+				evidência clínica e também precifica, comunica e constrói autoridade com
+				estratégia.
+			</p>
+
+			<div class="mt-8">
+				<Button variant="outline" href="/sobre">
+					Ver missão e equipe
+				</Button>
+			</div>
+		</div>
+
+		<div data-reveal="right">
+			<div class="relative mx-auto aspect-[3/4] w-full max-w-md overflow-hidden rounded-2xl border border-gold/10 bg-navy-light lg:max-w-none">
+				<img
+					src="/images/team/sacha.svg"
+					alt="Dra. Sacha Gualberto, CEO do Grupo US"
+					width={600}
+					height={800}
+					class="h-full w-full object-cover object-center"
+					loading="lazy"
+					decoding="async"
+					fetchpriority="low"
+				/>
+				<div
+					class="pointer-events-none absolute inset-0"
+					style="background: linear-gradient(135deg, color-mix(in srgb, var(--color-gold) 8%, transparent) 0%, transparent 45%, color-mix(in srgb, var(--color-navy) 35%, transparent) 100%);"
+					aria-hidden="true"
+				/>
+			</div>
+		</div>
+	</div>
+</section>

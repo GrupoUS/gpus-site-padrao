@@ -1,0 +1,61 @@
+{
+  "$schema": "./config.schema.json",
+  "project": {
+    "name": "gpus-site",
+    "displayName": "Grupo US — Site Institucional",
+    "stack": "astro-static-tailwindv4",
+    "stagingUrl": "http://localhost:4321",
+    "productionUrl": "https://grupous.com.br",
+    "locale": "pt-BR"
+  },
+  "paths": {
+    "backendRoot": "",
+    "frontendRoot": "src",
+    "schemaRoot": "",
+    "stylesRoot": "src/styles",
+    "componentsRoot": "src/components",
+    "libRoot": "src/lib"
+  },
+  "tooling": {
+    "packageManager": "bun",
+    "buildTool": "astro",
+    "typeChecker": "astro-check",
+    "linter": "biome",
+    "testRunner": "",
+    "deployer": "railway",
+    "frontendFramework": "astro+react-islands",
+    "database": "",
+    "orm": ""
+  },
+  "gates": {
+    "lighthouse": {
+      "performance": 95,
+      "accessibility": 95,
+      "bestPractices": 95,
+      "seo": 95
+    },
+    "lcp": 2500,
+    "cls": 0,
+    "inp": 100,
+    "initialJsKb": 50
+  },
+  "protectedFiles": {
+    "exact": [
+      "astro.config.mjs",
+      "src/lib/whatsapp.ts",
+      "src/content.config.ts",
+      "package.json",
+      "tsconfig.json",
+      "biome.json",
+      "lefthook.yml"
+    ],
+    "segments": [],
+    "contains": [
+      "bun.lockb"
+    ]
+  },
+  "rulesDir": ".claude/rules",
+  "templatesDir": ".claude/templates",
+  "agentsFile": "AGENTS.md",
+  "claudeMdFile": ".claude/CLAUDE.md"
+}

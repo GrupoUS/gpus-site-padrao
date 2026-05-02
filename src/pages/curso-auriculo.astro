@@ -1,0 +1,57 @@
+---
+import { getCollection } from "astro:content";
+import Benefits from "../components/landing/Benefits.astro";
+import Differentials from "../components/landing/Differentials.astro";
+import FAQ from "../components/landing/FAQ.astro";
+import LandingCTA from "../components/landing/LandingCTA.astro";
+import LandingHero from "../components/landing/LandingHero.astro";
+import MobileCTABar from "../components/landing/MobileCTABar.astro";
+import PainPoints from "../components/landing/PainPoints.astro";
+import Pillars from "../components/landing/Pillars.astro";
+import { TestimonialCarousel } from "../components/landing/TestimonialCarousel.tsx";
+import Layout from "../layouts/Layout.astro";
+
+const products = await getCollection("products");
+const product = products.find((p) => p.data.slug === "curso-auriculo");
+if (!product) throw new Error("Product curso-auriculo not found");
+const d = product.data;
+
+const courseSchema = {
+	"@context": "https://schema.org",
+	"@type": "Course",
+	name: d.name,
+	description: d.description,
+	provider: {
+		"@type": "Organization",
+		name: "Grupo US",
+		url: "https://grupous.com.br",
+	},
+	educationalLevel: "Beginner",
+};
+---
+
+<Layout
+	title="Curso de Aurículo presencial: inscrição, auriculoterapia e perfuração | Grupo US"
+	description={d.description}
+	ogImage="/og/curso-auriculo.png"
+	activeNav="produtos"
+	whatsappMessage={d.cta.whatsappMessage}
+	hasBottomBar={true}
+	breadcrumbs={[
+		{ name: "Início", url: "https://grupous.com.br/" },
+		{ name: d.name, url: `https://grupous.com.br/${d.slug}` }
+	]}
+	jsonLd={courseSchema}
+>
+	<div class="pb-[calc(5rem+env(safe-area-inset-bottom,0px))] md:pb-0">
+		<LandingHero name={d.name} tagline={d.tagline} hero={d.hero} type={d.type} cta={d.cta} />
+		<PainPoints audience={d.audience} painPoints={d.painPoints} />
+		<Pillars pillars={d.pillars} />
+		<Benefits benefits={d.benefits} />
+		<Differentials differentials={d.differentials} />
+		<TestimonialCarousel client:visible testimonials={d.testimonials} />
+		<FAQ faqs={d.faqs} />
+		<LandingCTA name={d.name} cta={d.cta} />
+	</div>
+	<MobileCTABar cta={d.cta} />
+</Layout>

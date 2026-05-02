@@ -1,0 +1,20 @@
+---
+interface Props {
+	class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<span class:list={["inline-flex items-center", className]}>
+	<img
+		src="/images/logo-grupo-us.webp"
+		alt="Grupo US"
+		width="400"
+		height="276"
+		class="h-10 w-auto sm:h-12"
+		loading="eager"
+		decoding="async"
+		fetchpriority="high"
+	/>
+</span>

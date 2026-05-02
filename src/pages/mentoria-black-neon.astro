@@ -1,0 +1,85 @@
+---
+import { getCollection } from "astro:content";
+import Benefits from "../components/landing/Benefits.astro";
+import Deliverables from "../components/landing/Deliverables.astro";
+import Differentials from "../components/landing/Differentials.astro";
+import FAQ from "../components/landing/FAQ.astro";
+import LandingCTA from "../components/landing/LandingCTA.astro";
+import LandingHero from "../components/landing/LandingHero.astro";
+import MobileCTABar from "../components/landing/MobileCTABar.astro";
+import NeonBio from "../components/landing/NeonBio.astro";
+import NeonBonus from "../components/landing/NeonBonus.astro";
+import NeonStory from "../components/landing/NeonStory.astro";
+import PainPoints from "../components/landing/PainPoints.astro";
+import Pillars from "../components/landing/Pillars.astro";
+import { TestimonialCarousel } from "../components/landing/TestimonialCarousel.tsx";
+import Layout from "../layouts/Layout.astro";
+
+const products = await getCollection("products");
+const product = products.find((p) => p.data.slug === "mentoria-black-neon");
+if (!product) throw new Error("Product mentoria-black-neon not found");
+const d = product.data;
+
+const productSchema = {
+	"@context": "https://schema.org",
+	"@type": "Product",
+	name: d.name,
+	description: d.description,
+	brand: {
+		"@type": "Organization",
+		name: "Grupo US",
+		url: "https://grupous.com.br",
+	},
+	image: `https://grupous.com.br${d.image}`,
+};
+---
+
+<Layout
+	title="Mentoria Black NEON — escala para clínicas de saúde estética | Grupo US"
+	description={d.description}
+	ogImage="/og/mentoria-black-neon.png"
+	activeNav="produtos"
+	whatsappMessage={d.cta.whatsappMessage}
+	hasBottomBar={true}
+	breadcrumbs={[
+		{ name: "Início", url: "https://grupous.com.br/" },
+		{ name: d.name, url: `https://grupous.com.br/${d.slug}` }
+	]}
+	jsonLd={productSchema}
+>
+	<div class="pb-[calc(5rem+env(safe-area-inset-bottom,0px))] md:pb-0">
+		{/* S1: Hero — dark navy */}
+		<LandingHero name={d.name} tagline={d.tagline} hero={d.hero} type={d.type} cta={d.cta} />
+
+		{/* S2: Story/Empathy — light background (visual contrast) */}
+		{d.story && <NeonStory story={d.story} />}
+
+		{/* S3: Pain Points / Para quem — dark navy */}
+		<PainPoints audience={d.audience} painPoints={d.painPoints} />
+
+		{/* S4: Pillars / Tríade — dark navy */}
+		<Pillars pillars={d.pillars} />
+
+		{/* S5: Deliverables — dark navy */}
+		{d.deliverables ? <Deliverables deliverables={d.deliverables} /> : <Benefits benefits={d.benefits} />}
+
+		{/* S6: Bonus — navy-light (darker accent) */}
+		{d.bonus && <NeonBonus bonus={d.bonus} />}
+
+		{/* S7: Differentials — dark navy */}
+		<Differentials differentials={d.differentials} />
+
+		{/* S8: Testimonials — dark navy */}
+		<TestimonialCarousel client:visible testimonials={d.testimonials} />
+
+		{/* S9: Bio Dra. Sacha — light background (visual contrast) */}
+		{d.bio && <NeonBio bio={d.bio} />}
+
+		{/* S10: FAQ — dark navy */}
+		<FAQ faqs={d.faqs} />
+
+		{/* S11: Final CTA — navy-light */}
+		<LandingCTA name={d.name} cta={d.cta} />
+	</div>
+	<MobileCTABar cta={d.cta} />
+</Layout>

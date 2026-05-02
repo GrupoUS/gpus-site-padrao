@@ -1,0 +1,200 @@
+{
+	"name": "Mentoria Black NEON",
+	"slug": "mentoria-black-neon",
+	"tagline": "Mentoria de negócios de 6 meses para donos de clínica em Saúde Estética que querem escalar com estratégia — não só com mais horas de plantão.",
+	"description": "Seis meses de acompanhamento ativo em gestão, posicionamento premium e vendas para donos de clínicas de Saúde Estética que querem crescer com método, inteligência de negócio e menos dependência do fundador.",
+	"type": "Mentoria de Negócios",
+	"audience": "Donos de clínica em Saúde Estética que já operam e querem estruturar o negócio para crescer",
+	"icon": "Rocket",
+	"image": "/images/products/mentoria-black-neon.webp",
+	"order": 3,
+	"hero": {
+		"headline": "Escale sua clínica de Saúde Estética com gestão, autoridade e clientes premium na Mentoria Black NEON",
+		"subheadline": "Seis meses de mentoria ativa: diagnóstico do seu negócio, plano de ação sob medida e suporte próximo — para você liderar com clareza e construir um negócio que não para quando você sai de plantão."
+	},
+	"painPoints": [
+		{
+			"icon": "Stethoscope",
+			"title": "Já atua em Saúde Estética Avançada",
+			"description": "Você domina a técnica e entrega resultados, mas sente que o negócio precisa de mais estrutura para crescer de verdade."
+		},
+		{
+			"icon": "TrendingUp",
+			"title": "Quer escalar com estratégia, não com exaustão",
+			"description": "Trabalhar mais horas não é a resposta. Você precisa de processos, equipe e inteligência de negócio para escalar sem se esgotar."
+		},
+		{
+			"icon": "Crown",
+			"title": "Busca posicionamento premium",
+			"description": "Quer ser reconhecido como referência no mercado, atrair pacientes que valorizam e pagam pelo seu trabalho sem depender de promoção."
+		},
+		{
+			"icon": "Target",
+			"title": "Quer clareza de decisões",
+			"description": "Chega de operar no escuro. Você precisa de indicadores, diagnóstico financeiro e um plano de ação concreto para os próximos 12 meses."
+		},
+		{
+			"icon": "Users",
+			"title": "Quer um negócio que funcione sem depender só de você",
+			"description": "Construir uma equipe, delegar com confiança e criar processos que permitam ao negócio operar mesmo quando você não está."
+		},
+		{
+			"icon": "Heart",
+			"title": "Deseja atrair e fidelizar pacientes de valor",
+			"description": "Pacientes que entendem, valorizam e pagam o preço justo pelo seu trabalho — com recorrência e indicações qualificadas."
+		}
+	],
+	"pillars": [
+		{
+			"icon": "Settings",
+			"title": "Gestão Descomplicada",
+			"description": "Estrutura de gestão inteligente que organiza processos, agenda, equipe e finanças, garantindo previsibilidade, eficiência e crescimento sustentável para a clínica."
+		},
+		{
+			"icon": "Megaphone",
+			"title": "Marketing de Relacionamento",
+			"description": "Posicionamento estratégico que constrói autoridade, fortalece vínculos e transforma presença digital em confiança, recorrência e indicações qualificadas."
+		},
+		{
+			"icon": "HandCoins",
+			"title": "Vendas Intangíveis",
+			"description": "Arquitetura de vendas orientada a dados e decisão, com processos claros que convertem relacionamento em faturamento consistente e previsível."
+		}
+	],
+	"benefits": [
+		"Diagnóstico individual e plano de ação sob medida para a sua clínica",
+		"Acompanhamento próximo com Dra. Sacha e tutores especializados",
+		"Inteligência financeira aplicada: análise, precificação e margem",
+		"Processos de gestão que reduzem sua dependência na operação",
+		"Estratégias de vendas premium validadas no mercado real",
+		"Networking com donos de clínica no mesmo estágio de crescimento"
+	],
+	"deliverables": [
+		{
+			"title": "Ambiência Positiva",
+			"description": "Grupo exclusivo no WhatsApp com Dra. Sacha, tutores e mentorados. Trocas diárias, suporte em tempo real e motivação constante."
+		},
+		{
+			"title": "Visão de Escala de Negócio com Dra. Sacha",
+			"description": "Sessão 1:1 para traçar um plano estratégico personalizado com base na sua essência e objetivos para expandir seu consultório ou clínica."
+		},
+		{
+			"title": "Análise Financeira com Especialista",
+			"description": "Sessão com nosso assessor de investimentos para organizar suas finanças e aumentar seus lucros."
+		},
+		{
+			"title": "Reestruturação e Gestão",
+			"description": "Sessão individual para estabelecer novos processos e ajustar a gestão da sua clínica para que ela dependa ainda menos de você."
+		},
+		{
+			"title": "Sessão Individual de Vendas",
+			"description": "Momento para estruturar estratégias de venda para atrair e fidelizar clientes premium, substituindo esforço por inteligência."
+		},
+		{
+			"title": "Raio-X NEON",
+			"description": "Mentorias mensais em grupo para diagnóstico e direcionamento do seu negócio. Aprendizado prático e direto com cada caso."
+		},
+		{
+			"title": "Happy Hour Estratégico (Tim-Tim NEON)",
+			"description": "Encontros ao vivo com Dra. Sacha e experts convidados: networking, insights e expansão de visão."
+		},
+		{
+			"title": "Tutorias Estratégicas",
+			"description": "Sessões com especialistas em Marketing, Tráfego e Investimentos para acelerar seus resultados."
+		},
+		{
+			"title": "Divã NEON",
+			"description": "Encontros mensais com psicólogo para cuidar de você enquanto seu negócio cresce."
+		},
+		{
+			"title": "Acesso às Gravações",
+			"description": "Reveja os encontros do Raio-X e Happy Hour quantas vezes quiser, no seu ritmo."
+		}
+	],
+	"differentials": [
+		{
+			"title": "Focada exclusivamente em clínicas de estética",
+			"description": "Não é uma mentoria genérica de negócios. Cada estratégia, indicador e processo foi criado especificamente para a realidade de clínicas de Saúde Estética."
+		},
+		{
+			"title": "6 meses de acompanhamento real",
+			"description": "Nada de curso gravado que você assiste sozinho. São 6 meses de mentoria ativa com sessões individuais, em grupo e suporte diário no WhatsApp."
+		},
+		{
+			"title": "Mentores que vivem a mesma realidade",
+			"description": "Você aprende com quem opera clínicas próprias de sucesso. Estratégias testadas e validadas no mercado real da Saúde Estética."
+		}
+	],
+	"faqs": [
+		{
+			"question": "A mentoria é individual ou em grupo?",
+			"answer": "A Mentoria Black NEON combina encontros em grupo com sessões individuais. Os encontros em grupo promovem networking e troca de experiências, enquanto as sessões individuais focam nos desafios específicos da sua clínica."
+		},
+		{
+			"question": "Preciso ter clínica própria para participar?",
+			"answer": "Sim, a mentoria é direcionada para profissionais que já possuem clínica em operação e querem escalar o negócio. Se você ainda está planejando abrir, recomendamos o TRINTAE3 primeiro."
+		},
+		{
+			"question": "Qual o tempo de dedicação semanal necessário?",
+			"answer": "Recomendamos de 4 a 6 horas semanais entre encontros, implementação de tarefas e consumo de conteúdo complementar. O programa foi desenhado para quem tem agenda cheia."
+		},
+		{
+			"question": "A Black NEON substitui o TRINTAE3 ou é outra etapa?",
+			"answer": "São produtos diferentes. O TRINTAE3 é formação avançada (técnica + base de negócios) para quem quer se especializar. A Mentoria Black NEON é focada em donos de clínica que já operam e querem escalar gestão, vendas e posicionamento. Muitos mentorados chegam depois de uma base sólida de técnica e negócio."
+		},
+		{
+			"question": "Isso é curso gravado ou mentoria ao vivo?",
+			"answer": "É mentoria viva: encontros em grupo, sessões individuais, grupo no WhatsApp com Dra. Sacha e tutores, além de acesso às gravações dos encontros para revisar no seu ritmo — sem substituir o acompanhamento em tempo real."
+		}
+	],
+	"cta": {
+		"label": "Falar com a Laura sobre a mentoria",
+		"url": "https://wa.me/556294705081?text=Ol%C3%A1%2C%20Laura!%20Sou%20dono(a)%20de%20cl%C3%ADnica%20em%20sa%C3%BAde%20est%C3%A9tica%20e%20quero%20saber%20sobre%20a%20Mentoria%20Black%20NEON%20%E2%80%94%20vagas%2C%20investimento%20e%20pr%C3%B3ximo%20ciclo.",
+		"whatsappMessage": "Olá, Laura! Sou dono(a) de clínica em saúde estética e quero saber sobre a Mentoria Black NEON — vagas, investimento e próximo ciclo.",
+		"type": "primary"
+	},
+	"story": {
+		"headline": "Um negócio em Saúde Estética exige mais que técnica: exige olhar de dono",
+		"paragraphs": [
+			"Você domina a técnica, as pessoas confiam nos seus resultados e você ama o que faz. Só que no dia a dia aparecem concorrência, operação presa em você, finanças sem previsibilidade e a sensação de correr o tempo todo sem ver o lucro que o esforço merece.",
+			"Você foi preparado para ser um excelente profissional; construir empresa — com processos, time e oferta premium — é outra disciplina."
+		],
+		"highlight": "A Mentoria Black NEON existe para essa virada: combinar visão de negócio, gestão e marketing de relacionamento com a realidade de clínicas de estética — para você estruturar um negócio saudável e se posicionar como referência no mercado premium."
+	},
+	"bonus": [
+		{
+			"title": "6 Meses de Acesso à COMU (Comunidade US)",
+			"description": "Aulas, materiais e conteúdos exclusivos com suporte contínuo da comunidade de profissionais do Grupo US."
+		},
+		{
+			"title": "Acesso à IA de Vendas, Gestão e Marketing",
+			"description": "Ferramenta proprietária com scripts, objeções, prompts e inteligência comercial para potencializar seus resultados."
+		},
+		{
+			"title": "Oportunidade de se tornar Preceptor do TRINTAE3",
+			"description": "Participação no ecossistema educacional do Grupo US com reconhecimento e autoridade no mercado."
+		}
+	],
+	"bio": {
+		"name": "Dra. Sacha Gualberto",
+		"title": "Mentora de Profissionais da Saúde Estética",
+		"photo": "/images/sacha-about.webp",
+		"paragraphs": [
+			"Com mais de 13 anos como empresária e especialista em Saúde Estética Avançada, certificações internacionais por Harvard e Xiamen, pioneirismo acadêmico e centenas de mentorados transformados, meu propósito é claro: te mostrar que você também pode chegar lá.",
+			"Você não precisa fazer esse caminho sozinho. Com o direcionamento certo, você acelera seus resultados, constrói autoridade e atrai clientes de alto valor — tudo isso sem abrir mão da sua essência.",
+			"É por isso que criei o NEON, minha Mentoria Black. Para te ajudar a sair do comum, construir um negócio sólido e viver o extraordinário na sua carreira."
+		]
+	},
+	"testimonials": [
+		{
+			"name": "Dra. Patrícia Lima",
+			"role": "Dona de clínica — Brasília/DF",
+			"quote": "Antes da Black NEON eu faturava R$ 60 mil e trabalhava 12 horas por dia. Hoje faturo R$ 180 mil com uma equipe de 5 profissionais e tiro férias sem medo."
+		},
+		{
+			"name": "Dr. Thiago Almeida",
+			"role": "Dono de rede de clínicas — Salvador/BA",
+			"quote": "A mentoria me deu clareza para abrir a segunda unidade. Em 8 meses, as duas clínicas juntas faturam mais de R$ 300 mil. O investimento se pagou no primeiro mês."
+		}
+	]
+}

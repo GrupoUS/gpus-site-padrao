@@ -1,0 +1,66 @@
+---
+interface Props {
+	variant?: "primary" | "whatsapp" | "outline" | "ghost";
+	href?: string;
+	size?: "sm" | "md" | "lg";
+	class?: string;
+	target?: string;
+	ariaLabel?: string;
+}
+
+const {
+	variant = "primary",
+	href,
+	size = "md",
+	class: className,
+	target,
+	ariaLabel,
+} = Astro.props;
+
+const baseClasses =
+	"inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-300 cursor-pointer";
+
+const sizeClasses: Record<string, string> = {
+	sm: "px-4 py-2 text-sm",
+	md: "px-6 py-3 text-base",
+	lg: "px-8 py-4 text-lg",
+};
+
+const variantClasses: Record<string, string> = {
+	primary:
+		"bg-gold text-navy hover:bg-gold-light gold-glow hover:scale-[1.02] active:scale-95",
+	whatsapp:
+		"bg-whatsapp text-white hover:bg-whatsapp-hover hover:shadow-[0_4px_12px_color-mix(in_srgb,var(--color-whatsapp)_10%,transparent),0_0_20px_color-mix(in_srgb,var(--color-whatsapp)_25%,transparent)] active:scale-95",
+	outline:
+		"border-2 border-gold text-gold hover:bg-gold hover:text-navy hover:shadow-[0_4px_12px_color-mix(in_srgb,var(--color-gold)_10%,transparent),0_0_20px_color-mix(in_srgb,var(--color-gold)_25%,transparent)] active:scale-95",
+	ghost:
+		"text-gold hover:bg-navy-lighter/50 hover:shadow-[0_0_15px_color-mix(in_srgb,var(--color-gold)_15%,transparent)] active:scale-95",
+};
+
+const classes = [
+	baseClasses,
+	sizeClasses[size],
+	variantClasses[variant],
+	className,
+]
+	.filter(Boolean)
+	.join(" ");
+
+const Tag = href ? "a" : "button";
+
+const linkAttrs = href
+	? {
+			href,
+			...(target ? { target } : {}),
+			...(target === "_blank" ? { rel: "noopener noreferrer" } : {}),
+		}
+	: {};
+---
+
+<Tag
+	class={classes}
+	{...linkAttrs}
+	{...(ariaLabel ? { "aria-label": ariaLabel } : {})}
+>
+	<slot />
+</Tag>

@@ -1,0 +1,192 @@
+---
+import { Font } from "astro:assets";
+import { getCollection } from "astro:content";
+import Footer from "../components/layout/Footer.astro";
+import Header from "../components/layout/Header.astro";
+import { WhatsAppFloatingButton } from "../components/shared/WhatsAppFloatingButton.tsx";
+import { productNavLinksFromCollection } from "../lib/productsNav";
+import "../styles/global.css";
+
+interface Props {
+	title: string;
+	description?: string;
+	ogImage?: string;
+	activeNav?: string;
+	breadcrumbs?: Array<{ name: string; url: string }>;
+	whatsappMessage?: string;
+	hasBottomBar?: boolean;
+	jsonLd?: Record<string, unknown>;
+}
+
+const {
+	title,
+	description = "Formação, mentoria e comunidade em saúde estética avançada com o Grupo US. Trilha clara da técnica à escala de negócio.",
+	ogImage = "/og-image.png",
+	activeNav,
+	breadcrumbs,
+	whatsappMessage,
+	hasBottomBar = false,
+	jsonLd,
+} = Astro.props;
+
+const productNavLinks = productNavLinksFromCollection(
+	await getCollection("products"),
+);
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const organizationSchema = {
+	"@context": "https://schema.org",
+	"@type": "Organization",
+	name: "Grupo US",
+	url: "https://grupous.com.br",
+	logo: "https://grupous.com.br/logo-grupo-us.png",
+	description:
+		"Formação, mentoria e comunidade em saúde estética avançada. Ecossistema para profissionais que buscam técnica, gestão e escala de negócio.",
+	founder: {
+		"@type": "Person",
+		name: "Dra. Sacha Gualberto",
+		jobTitle: "CEO",
+		sameAs: ["https://instagram.com/drasachagualberto"],
+	},
+	contactPoint: {
+		"@type": "ContactPoint",
+		telephone: "+55-62-9470-5081",
+		contactType: "customer service",
+		availableLanguage: "Portuguese",
+	},
+	sameAs: [
+		"https://instagram.com/drasachagualberto",
+		"https://wa.me/556294705081",
+	],
+};
+---
+
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" sizes="32x32" />
+		<meta name="generator" content={Astro.generator} />
+
+		<!-- SEO -->
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+		<meta name="robots" content="index, follow" />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL(ogImage, Astro.site)} />
+		<meta property="og:locale" content="pt_BR" />
+		<meta property="og:site_name" content="Grupo US" />
+
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
+
+		<!-- Fonts (Astro 6 Fonts API) -->
+		<Font cssVariable="--font-playfair" />
+		<Font cssVariable="--font-inter" />
+
+		<!-- JSON-LD Organization Schema -->
+		<script
+			is:inline
+			type="application/ld+json"
+			set:html={JSON.stringify(organizationSchema)}
+		/>
+
+		{breadcrumbs && (
+			<script
+				is:inline
+				type="application/ld+json"
+				set:html={JSON.stringify({
+					"@context": "https://schema.org",
+					"@type": "BreadcrumbList",
+					"itemListElement": breadcrumbs.map((item, index) => ({
+						"@type": "ListItem",
+						"position": index + 1,
+						"name": item.name,
+						"item": item.url
+					}))
+				})}
+			/>
+		)}
+
+		{jsonLd && (
+			<script
+				is:inline
+				type="application/ld+json"
+				set:html={JSON.stringify(jsonLd)}
+			/>
+		)}
+
+		<!-- Noscript: make data-reveal elements visible when JS is disabled -->
+		<noscript>
+			<style>
+				[data-reveal] {
+					opacity: 1 !important;
+					animation: none !important;
+					transform: none !important;
+				}
+			</style>
+		</noscript>
+	</head>
+
+	<body class="bg-navy font-sans text-text-primary antialiased">
+		<!-- Skip Link -->
+		<a href="#conteudo-principal" class="skip-link">
+			Pular para o conteúdo principal
+		</a>
+
+		<Header activeNav={activeNav} productNavLinks={productNavLinks} />
+
+		<main id="conteudo-principal" tabindex="-1">
+			<slot />
+		</main>
+
+		<WhatsAppFloatingButton
+			client:load
+			message={whatsappMessage}
+			hasBottomBar={hasBottomBar}
+		/>
+
+		<Footer productNavLinks={productNavLinks} />
+
+		<!-- IntersectionObserver for scroll-reveal animations -->
+		<script>
+			function initReveal() {
+				const elements = document.querySelectorAll("[data-reveal]");
+				if (!elements.length) return;
+
+				const observer = new IntersectionObserver(
+					(entries) => {
+						for (const entry of entries) {
+							if (entry.isIntersecting) {
+								entry.target.classList.add("revealed");
+								observer.unobserve(entry.target);
+							}
+						}
+					},
+					{
+						threshold: 0.1,
+						rootMargin: "0px 0px -40px 0px",
+					},
+				);
+
+				for (const el of elements) {
+					observer.observe(el);
+				}
+			}
+
+			initReveal();
+		</script>
+	</body>
+</html>

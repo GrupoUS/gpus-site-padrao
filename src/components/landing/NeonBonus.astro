@@ -1,0 +1,61 @@
+---
+import SectionHeading from "../shared/SectionHeading.astro";
+
+interface Props {
+	bonus: Array<{ title: string; description: string }>;
+}
+
+const { bonus } = Astro.props;
+
+const iconPaths: Record<number, string> = {
+	0: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+	1: '<path d="M12 2a10 10 0 1 0 10 10H12V2z"/><path d="M20 12a8 8 0 0 0-8-8v8h8z"/><path d="m9 15 3-3 3 3"/>',
+	2: '<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
+};
+---
+
+<section class="bg-navy-light px-4 py-20 sm:px-6 lg:px-8">
+	<div class="mx-auto max-w-5xl">
+		<SectionHeading
+			title="E ainda tem mais"
+			subtitle="Bônus exclusivos para quem entra no NEON"
+		/>
+
+		<div class="mt-14 space-y-6">
+			{bonus.map((item, index) => (
+				<div
+					class="group flex items-start gap-6 rounded-2xl border border-gold/15 bg-navy/80 p-6 backdrop-blur-sm transition-all duration-300 hover:border-gold/30 hover:shadow-[0_0_24px_hsl(39_44%_65%/0.1)] md:p-8"
+					data-reveal="up"
+					data-reveal-delay={String(index + 1)}
+				>
+					<!-- Number badge -->
+					<div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-gold/25 bg-gold/10">
+						<svg
+							class="h-6 w-6 text-gold"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="currentColor"
+							stroke-width="2"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							aria-hidden="true"
+							set:html={iconPaths[index] || iconPaths[0]}
+						/>
+					</div>
+
+					<div>
+						<span class="text-xs font-bold uppercase tracking-widest text-gold/60">
+							Bônus {String(index + 1).padStart(2, "0")}
+						</span>
+						<h3 class="mt-1 font-serif text-xl font-bold text-gold">
+							{item.title}
+						</h3>
+						<p class="mt-2 leading-relaxed text-text-muted">
+							{item.description}
+						</p>
+					</div>
+				</div>
+			))}
+		</div>
+	</div>
+</section>

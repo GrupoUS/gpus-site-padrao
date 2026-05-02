@@ -1,0 +1,312 @@
+---
+import Button from "../components/shared/Button.astro";
+import Layout from "../layouts/Layout.astro";
+import {
+	WHATSAPP_DEFAULT_SITE_MESSAGE,
+	whatsappUrlWithText,
+} from "../lib/whatsapp";
+
+/** Defina no deploy: URL completa `https://formspree.io/f/xxxx` */
+const formAction = import.meta.env.PUBLIC_FORMSPREE_ACTION as
+	| string
+	| undefined;
+
+const contatoWhatsappHref = whatsappUrlWithText(WHATSAPP_DEFAULT_SITE_MESSAGE);
+---
+
+<Layout
+	title="Contato — Grupo US | WhatsApp, e-mail e assessoria em programas"
+	description="Fale com a Laura (SDR) no WhatsApp ou use e-mail e formulário. Indicação de programa (curso, pós, comunidade, mentoria) para profissionais de saúde estética."
+	ogImage="/og/contato.png"
+	activeNav="contato"
+	breadcrumbs={[
+		{ name: "Início", url: "https://grupous.com.br/" },
+		{ name: "Contato", url: "https://grupous.com.br/contato" }
+	]}
+>
+	<section class="pt-32 pb-16 px-4">
+		<div class="max-w-4xl mx-auto text-center" data-reveal="up">
+			<h1
+				class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-text-primary mb-6"
+			>
+				Fale <span class="text-gold">conosco</span>
+			</h1>
+			<p class="text-text-muted text-lg md:text-xl max-w-2xl mx-auto">
+				Estamos prontos para ajudar você a encontrar o programa ideal para
+				sua jornada profissional.
+			</p>
+		</div>
+	</section>
+
+	<section class="py-16 px-4">
+		<div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+			<!-- Contact Form -->
+			<div data-reveal="left">
+				<h2 class="font-serif text-2xl font-bold text-gold mb-6">
+					Envie sua mensagem
+				</h2>
+				{
+					!formAction ? (
+						<p class="rounded-xl border border-gold/20 bg-navy-light/50 p-4 text-sm text-text-muted">
+							Para enviar pelo site, configure{" "}
+							<code class="text-gold/90">PUBLIC_FORMSPREE_ACTION</code> no ambiente (URL completa do
+							Formspree, ex.: <code class="text-gold/90">https://formspree.io/f/xxxx</code>). Use
+							WhatsApp ou o e-mail ao lado até lá.
+						</p>
+					) : (
+						<form action={formAction} method="POST" class="space-y-6">
+							<input
+								type="text"
+								name="_gotcha"
+								tabindex="-1"
+								autocomplete="off"
+								class="sr-only"
+								aria-hidden="true"
+							/>
+					<div>
+						<label
+							for="name"
+							class="block text-sm font-medium text-text-primary mb-2"
+							>Nome completo</label
+						>
+						<input
+							type="text"
+							id="name"
+							name="name"
+							required
+							class="w-full px-4 py-3 bg-navy-light border border-gold/20 rounded-xl text-text-primary placeholder:text-text-muted/50 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition-all"
+							placeholder="Seu nome"
+						/>
+					</div>
+					<div>
+						<label
+							for="email"
+							class="block text-sm font-medium text-text-primary mb-2"
+							>E-mail</label
+						>
+						<input
+							type="email"
+							id="email"
+							name="email"
+							required
+							class="w-full px-4 py-3 bg-navy-light border border-gold/20 rounded-xl text-text-primary placeholder:text-text-muted/50 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition-all"
+							placeholder="seu@email.com"
+						/>
+					</div>
+					<div>
+						<label
+							for="subject"
+							class="block text-sm font-medium text-text-primary mb-2"
+							>Assunto</label
+						>
+						<select
+							id="subject"
+							name="subject"
+							class="w-full px-4 py-3 bg-navy-light border border-gold/20 rounded-xl text-text-primary focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition-all"
+						>
+							<option value="geral">Informações gerais</option>
+							<option value="trintae3">TRINTAE3</option>
+							<option value="otb">OTB — MBA Internacional</option>
+							<option value="mentoria-neon"
+								>Mentoria Black NEON</option
+							>
+							<option value="comunidade">Comunidade US</option>
+							<option value="auriculo">Curso de Auriculoterapia</option>
+							<option value="na-mesa-certa">Na Mesa Certa</option>
+							<option value="parceria">Parceria</option>
+						</select>
+					</div>
+					<div>
+						<label
+							for="message"
+							class="block text-sm font-medium text-text-primary mb-2"
+							>Mensagem</label
+						>
+						<textarea
+							id="message"
+							name="message"
+							rows="5"
+							required
+							class="w-full px-4 py-3 bg-navy-light border border-gold/20 rounded-xl text-text-primary placeholder:text-text-muted/50 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent transition-all resize-none"
+							placeholder="Como podemos ajudar?"></textarea>
+					</div>
+					<Button variant="primary" size="lg">Enviar mensagem</Button>
+						</form>
+					)
+				}
+			</div>
+
+			<!-- Contact Info -->
+			<div data-reveal="right" class="space-y-8">
+				<h2 class="font-serif text-2xl font-bold text-gold mb-6">
+					Outros canais
+				</h2>
+
+				<!-- WhatsApp -->
+				<div class="glass-card rounded-2xl p-6">
+					<div class="flex items-start gap-4">
+						<div
+							class="w-12 h-12 rounded-xl bg-whatsapp/10 flex items-center justify-center shrink-0"
+						>
+							<svg
+								class="w-6 h-6 text-whatsapp"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path
+									d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
+								></path>
+							</svg>
+						</div>
+						<div>
+							<h3 class="font-semibold text-text-primary mb-1">
+								WhatsApp — Laura (SDR)
+							</h3>
+							<p class="text-text-muted text-sm mb-3">
+								Nossa assistente no WhatsApp direciona você ao programa certo, no seu ritmo.
+							</p>
+							<Button
+								variant="whatsapp"
+								size="sm"
+								href={contatoWhatsappHref}
+								target="_blank"
+								ariaLabel="Falar com a Laura no WhatsApp — Grupo US (abre em nova aba)"
+							>
+								Falar com a Laura
+							</Button>
+						</div>
+					</div>
+				</div>
+
+				<!-- Email -->
+				<div class="glass-card rounded-2xl p-6">
+					<div class="flex items-start gap-4">
+						<div
+							class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center shrink-0"
+						>
+							<svg
+								class="w-6 h-6 text-gold"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<rect
+									width="20"
+									height="16"
+									x="2"
+									y="4"
+									rx="2"></rect>
+								<path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"
+								></path>
+							</svg>
+						</div>
+						<div>
+							<h3 class="font-semibold text-text-primary mb-1">
+								E-mail
+							</h3>
+							<p class="text-text-muted text-sm mb-1">
+								Para dúvidas ou parcerias
+							</p>
+							<a
+								href="mailto:suporte@drasacha.com.br"
+								class="text-gold hover:text-gold-light transition-colors text-sm"
+							>
+								suporte@drasacha.com.br
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Instagram -->
+				<div class="glass-card rounded-2xl p-6">
+					<div class="flex items-start gap-4">
+						<div
+							class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center shrink-0"
+						>
+							<svg
+								class="w-6 h-6 text-gold"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<rect
+									width="20"
+									height="20"
+									x="2"
+									y="2"
+									rx="5"
+									ry="5"></rect>
+								<path
+									d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+								></path>
+								<line
+									x1="17.5"
+									y1="6.5"
+									x2="17.51"
+									y2="6.5"></line>
+							</svg>
+						</div>
+						<div>
+							<h3 class="font-semibold text-text-primary mb-1">
+								Instagram
+							</h3>
+							<p class="text-text-muted text-sm mb-1">
+								Acompanhe nossas novidades
+							</p>
+							<a
+								href="https://instagram.com/drasachagualberto"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="text-gold hover:text-gold-light transition-colors text-sm"
+							>
+								@drasachagualberto
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Location -->
+				<div class="glass-card rounded-2xl p-6">
+					<div class="flex items-start gap-4">
+						<div
+							class="w-12 h-12 rounded-xl bg-gold/10 flex items-center justify-center shrink-0"
+						>
+							<svg
+								class="w-6 h-6 text-gold"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path
+									d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"
+								></path>
+								<circle cx="12" cy="10" r="3"></circle>
+							</svg>
+						</div>
+						<div>
+							<h3 class="font-semibold text-text-primary mb-1">
+								Localização
+							</h3>
+							<p class="text-text-muted text-sm">
+								Goiânia, GO — Atuação global
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>
