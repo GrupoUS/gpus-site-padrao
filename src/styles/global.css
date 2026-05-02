@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* ===== Grupo US — Design System ===== */
+/* ===== Design System (Navy/Gold) ===== */
 
 @theme {
 	/* Navy Palette */
@@ -16,10 +16,6 @@
 	/* Text */
 	--color-text-primary: #fafaf9;
 	--color-text-muted: #94a3b8;
-
-	/* Brand: WhatsApp (CTA secundario) */
-	--color-whatsapp: #25d366;
-	--color-whatsapp-hover: #20bd5a;
 
 	/* Typography */
 	--font-serif: var(--font-playfair), Georgia, serif;

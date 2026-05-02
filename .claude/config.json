@@ -1,13 +1,14 @@
 {
   "$schema": "./config.schema.json",
   "project": {
-    "name": "gpus-site",
-    "displayName": "Grupo US — Site Institucional",
+    "name": "gp-us-harmonic-pascal",
+    "displayName": "GP-US Harmonic Pascal",
     "stack": "astro-static-tailwindv4",
     "stagingUrl": "http://localhost:4321",
-    "productionUrl": "https://grupous.com.br",
+    "productionUrl": "https://harmonic-pascal.grupous.com.br",
     "locale": "pt-BR"
   },
+  "overlay": ".claude/overlay/gp-us-harmonic-pascal",
   "paths": {
     "backendRoot": "",
     "frontendRoot": "src",
@@ -41,10 +42,6 @@
   },
   "protectedFiles": {
     "exact": [
-      "astro.config.mjs",
-      "src/lib/whatsapp.ts",
-      "src/content.config.ts",
-      "package.json",
       "tsconfig.json",
       "biome.json",
       "lefthook.yml"
