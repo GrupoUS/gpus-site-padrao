@@ -7,11 +7,12 @@ Project-specific protected paths read from .claude/config.json::protectedFiles
 (extends each list).
 """
 import json
-import os
 import sys
 import typing
 
 from pathlib import Path, PurePath
+
+from _hook_utils import log_hook_error, resolve_project_dir
 
 # Generic exact filename matches — apply to every project
 PROTECTED_EXACT_DEFAULT = {
@@ -45,8 +46,7 @@ def load_extra_protections() -> tuple[set[str], set[str], list[str]]:
     extra_segments: set[str] = set()
     extra_contains: list[str] = []
 
-    project_dir = os.environ.get("CLAUDE_PROJECT_DIR", os.getcwd())
-    config_path = Path(project_dir) / ".claude" / "config.json"
+    config_path = Path(resolve_project_dir()) / ".claude" / "config.json"
 
     if config_path.is_file():
         try:
@@ -55,8 +55,8 @@ def load_extra_protections() -> tuple[set[str], set[str], list[str]]:
             extra_exact.update(pf.get("exact", []) or [])
             extra_segments.update(pf.get("segments", []) or [])
             extra_contains.extend(pf.get("contains", []) or [])
-        except Exception:
-            pass
+        except Exception as exc:
+            log_hook_error("protect_files.load_extra_protections", exc)
 
     return extra_exact, extra_segments, extra_contains
 
@@ -71,7 +71,8 @@ def read_input() -> dict[str, object]:
     try:
         raw = sys.stdin.read()
         return typing.cast(dict[str, object], json.loads(raw)) if raw.strip() else {}
-    except Exception:
+    except Exception as exc:
+        log_hook_error("protect_files.read_input", exc)
         return {}
 
 

@@ -196,7 +196,7 @@ Two ways for an agent to use a skill:
 | Evaluator / reviewer | `senior-prompt-engineer` |
 | Debugger | project's debugging methodology skill, `senior-prompt-engineer` |
 
-Domain / leaf agents (frontend, backend, perf, code-review, verification, oracle, librarian, codebase explorer) typically keep body-level `Skill()` calls — they're routing-dependent and would waste context preloading prompt-engineering content. Audit per-agent: if removing the skill would break >50% of invocations, preload it.
+Domain / leaf agents (frontend, backend, perf, code-review, verification, evaluator, librarian, codebase explorer) typically keep body-level `Skill()` calls — they're routing-dependent and would waste context preloading prompt-engineering content. Audit per-agent: if removing the skill would break >50% of invocations, preload it.
 
 ---
 

@@ -26,6 +26,16 @@ ls docs/plans/*.md 2>/dev/null
 
 Parse from plan: **Complexity**, **Layers**, phase markers (`[SEQUENTIAL]` / `[PARALLEL]`), task list (`- [ ]`), verify commands, sprint contracts, `[ASSUMED]` items to validate before starting.
 
+**Preferred fast path (Complex plans only).** If the plan contains a fenced ```yaml block at the end matching the schema in `.claude/templates/plan-to-implement-handoff.md`, parse it FIRST:
+
+- Use `phases[*].agent` to know which specialist to spawn per phase.
+- Use `phases[*].parallel` to decide between `run_in_background: true` (parallel) and sequential single Task invocations.
+- Use `phases[*].gate` to know what command/condition gates the next phase.
+- Use `verification[*]` as the final smoke set (run end-to-end after the last phase).
+- If `blast_radius.reversibility != fully_reversible`, print the rollback plan from the plan body BEFORE starting and ask the user to confirm.
+
+Fall back to scraping `## Phases` headings + `- [ ]` task lists when the YAML block is absent (legacy plans).
+
 Read `.claude/config.json` for tooling + paths. Project-specific layer/agent routing lives in `.claude/CLAUDE.md § Routing matrix (project-specific)`.
 
 **Flags:**

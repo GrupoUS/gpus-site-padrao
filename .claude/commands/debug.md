@@ -279,6 +279,21 @@ NO FIX WITHOUT A PASSING UNIT REPRODUCTION TEST.
 
 Run § 0.1. Run `/prime frontend`.
 
+**Optional Chrome DevTools Protocol toolset** (for non-Playwright cases — e.g. you need
+to capture screenshots, inspect headers, or interact via CDP without spinning up
+the Playwright runner):
+
+| Script | Purpose |
+|---|---|
+| `.claude/scripts/launch_chrome_debug.py [URL]` | Launch Chrome with `--remote-debugging-port=9222` and a dedicated profile. Reads start URL from `.claude/config.json::project.stagingUrl`. |
+| `.claude/scripts/cdp.py` | Issue CDP commands to the running browser (eval, navigate, screenshot dispatch). |
+| `.claude/scripts/chrome_screenshot.py [URL]` | One-shot screenshot capture. |
+| `.claude/scripts/cdp-tool.js` | Node helper invoked by `cdp.py` (do not run directly). |
+
+Use this path when the Playwright MCP is unavailable, or when you need a long-lived
+authenticated Chrome session (log in manually in the launched profile, then drive it
+via CDP).
+
 ### 3.2 Quality gates baseline
 
 Run unit-test suite first (cheap, catches logic errors): `${tooling.testRunner}` against frontend project. Then `${tooling.typeChecker}` and `${tooling.linter}`. Only proceed to browser if unit tests pass.

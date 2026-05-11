@@ -287,7 +287,7 @@ Run: bun run build
 | Content Collections (JSON data)                  | `frontend-specialist`   | frontend-design                              |
 | Tailwind CSS, design tokens, GPUS theme          | `frontend-specialist`   | gpus-theme, ui-ux-pro-max                    |
 | Performance, accessibility, SEO                  | `performance-optimizer` | performance-optimization                     |
-| Architecture consultation                        | `oracle`                | read-only analysis                           |
+| Architecture consultation                        | `evaluator` (Mode 3)    | adversarial read-only architecture analysis  |
 | Codebase research, file discovery                | `explorer`              | planning                                     |
 | External docs, library research                  | `librarian`             | documentation research                       |
 
@@ -307,9 +307,9 @@ This tells `/implement` which specialist to spawn.
 
 | Domain                          | Delegate To             | Trigger                                  |
 | ------------------------------- | ----------------------- | ---------------------------------------- |
-| Architecture or multi-system    | `oracle`                | Tradeoffs, unfamiliar patterns           |
-| Self-review after big change    | `oracle`                | Significant implementation               |
-| Hard debugging (2+ failures)    | `oracle`                | Repeated failed attempts                 |
+| Architecture or multi-system    | `evaluator` (Mode 3)    | Tradeoffs, unfamiliar patterns           |
+| Self-review after big change    | `evaluator` (Mode 3)    | Significant implementation               |
+| Hard debugging (2+ failures)    | `evaluator` (Mode 3)    | Repeated failed attempts                 |
 | External docs or libraries      | `librarian`             | Unfamiliar packages, quirks              |
 | Internal codebase structure     | `explorer`              | Find patterns, file locations            |
 | Astro pages, layouts, components | `frontend-specialist`  | .astro files, routing, slots             |

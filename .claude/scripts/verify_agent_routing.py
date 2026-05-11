@@ -15,7 +15,6 @@ EXPECT_BG: dict[str, bool] = {
     "frontend-specialist": False,
     "performance-optimizer": False,
     "project-planner": False,
-    "mobile-developer": False,
 }
 
 # Write capability per agent
@@ -27,7 +26,6 @@ CAN_WRITE: dict[str, bool] = {
     "frontend-specialist": True,
     "performance-optimizer": True,
     "project-planner": True,
-    "mobile-developer": True,
 }
 
 VALID_COLORS = {"red", "blue", "green", "yellow", "purple", "orange", "pink", "cyan"}

@@ -25,12 +25,12 @@ Project-specific values (project name, package manager, protected paths) come fr
 - **`ultracite.py`** (same script, Stop branch) — runs `bunx oxlint <modified files>` over up to 20 git-modified TS/JS files; blocks the stop only if `error_count > 0`, with the last 30 output lines (truncated to 2KB) attached to the block reason. Honors `stop_hook_active` to avoid loops. No errors → silent exit.
 
 ### SubagentStart
-- **`subagent_start.py`** (matcher: `debugger|evaluator|explorer-agent|explorer|frontend-specialist|librarian|mobile-developer|performance-optimizer|project-planner|verification`) — injects a short per-agent reminder (~80–120 chars) into the subagent's system prompt. Agent keys MUST stay in sync with the matcher.
+- **`subagent_start.py`** (matcher: `debugger|evaluator|explorer-agent|explorer|frontend-specialist|librarian|performance-optimizer|project-planner|verification`) — injects a short per-agent reminder (~80–120 chars) into the subagent's system prompt. Agent keys MUST stay in sync with the matcher.
 
 ### SubagentStop
 - **`subagent_stop.py`** — consolidated handler. Reads the agent transcript at most once, then:
   1. Logs to `.claude/logs/subagent-events.jsonl` if the agent is non-trivial (`agent_type` ∉ `{Explore, general-purpose, Bash}`) and the transcript has ≥ 20 lines.
-  2. For monitored agents (`orchestrator`, `debugger`, `frontend-specialist`, `performance-optimizer`, `mobile-developer`, `project-planner`, `explorer-agent`, `explorer`, `librarian`): scans for failure signals (`fail|failed|error|exception|traceback|panic`); on hit, increments `evaluator-failure-count.txt`, appends to `evaluator-escalation.jsonl`, and emits an escalation message on stderr at threshold 2 (then resets the counter).
+  2. For monitored agents (`orchestrator`, `debugger`, `frontend-specialist`, `performance-optimizer`, `project-planner`, `explorer-agent`, `explorer`, `librarian`): scans for failure signals (`fail|failed|error|exception|traceback|panic`); on hit, increments `evaluator-failure-count.txt`, appends to `evaluator-escalation.jsonl`, and emits an escalation message on stderr at threshold 2 (then resets the counter).
 
 ### TaskCompleted
 - **`task_completed.py`** — appends teammate task completion events to `.claude/logs/team-events.jsonl`. No-op when no `teammate_name` is present.
@@ -125,19 +125,33 @@ echo '{}' | python .claude/hooks/subagent_stop.py   # exit 0, no stdout
 
 ---
 
-## Logs
+## Telemetry & Logs
 
-```
-.claude/logs/subagent-events.jsonl          # SubagentStop activity log
-.claude/logs/evaluator-escalation.jsonl     # SubagentStop escalation events
-.claude/logs/evaluator-failure-count.txt    # SubagentStop counter (resets at threshold)
-.claude/logs/team-events.jsonl              # TaskCompleted events
-```
+All hooks fail open: any internal exception is silently swallowed so a broken
+hook can never wedge a session. **However**, exceptions are recorded for
+post-mortem via `_hook_utils.log_hook_error(name, exc)` — every hook that
+parses stdin or reads config calls it on failure.
 
-Format example:
+| File | Producer | Schema |
+|---|---|---|
+| `.claude/logs/subagent-events.jsonl` | `subagent_stop.py` (activity log, skipped for `Explore`/`Bash`/transcripts < 20 lines) | `{timestamp, session_id, agent_id, agent_type, transcript_lines, background}` |
+| `.claude/logs/evaluator-escalation.jsonl` | `subagent_stop.py` (failure-signal escalation) | `{timestamp, agent, count}` |
+| `.claude/logs/evaluator-failure-count.txt` | `subagent_stop.py` (counter, resets at threshold 2) | plain int |
+| `.claude/logs/team-events.jsonl` | `task_completed.py` (teammate task events) | `{timestamp, event, teammate, task_id, subject}` |
+| `.claude/logs/hook-errors.log` | **All hooks** via `_hook_utils.log_hook_error` | `{timestamp, hook, error_type, message, trace}` |
+
+Activity-log format example:
 ```json
 {"timestamp":"2026-04-30T12:00:00Z","session_id":"...","agent_id":"...","agent_type":"debugger","transcript_lines":120,"background":"True"}
 ```
+
+Error-log format example:
+```json
+{"timestamp":"2026-05-11T16:42:00Z","hook":"protect_files.load_extra_protections","error_type":"JSONDecodeError","message":"Expecting value: line 1 column 1","trace":"json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)\n"}
+```
+
+If a hook misbehaves, `tail -n 20 .claude/logs/hook-errors.log` is the first
+stop — it shows the offending function and the original traceback summary.
 
 ---
 

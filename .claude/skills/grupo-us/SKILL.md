@@ -7,6 +7,8 @@ description: Use when writing Grupo US copy, answering questions about company p
 
 Domain knowledge for **Grupo US** (health aesthetics education ecosystem): brand voice, official product IDs, student journey, culture, routes, and source-of-truth rules.
 
+> **Boundary vs `gpus-theme`.** This skill is the SSOT for **content/copy/journey/IDs** — what to say and which product/route to map. For **visual tokens** (Navy/Gold HSL, shadcn vars, light/dark behavior, `@theme` block, Tailwind utilities) load `gpus-theme` instead. The two skills are complementary, never overlapping: data and language live here; pixels and tokens live there.
+
 ## When to use
 
 - Draft or review **Portuguese** marketing copy, FAQ, WhatsApp scripts, or landing messaging for Grupo US offers.

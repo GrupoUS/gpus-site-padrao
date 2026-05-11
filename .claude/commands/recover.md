@@ -46,15 +46,15 @@ Common Astro recovery patterns (from `astro` skill → troubleshooting.md):
 - **ViewTransitions error** → Replace with `ClientRouter` from `astro:transitions` (Astro 6)
 - **config.ts errors** → Astro 6 infers schemas, delete `src/content/config.ts`
 
-## Step 4: CONSULT oracle
+## Step 4: INVOKE evaluator (Mode 3: Architecture Analysis)
 
-- Delegate the failure report to oracle agent
+- Delegate the failure report to the `evaluator` agent in Mode 3 (adversarial read-only architecture analysis — replaces former `oracle` agent)
 - Prompt format:
-  "Here is a failure I cannot resolve: [DOCUMENT output]. Analyze root cause and recommend approach."
+  "Here is a failure I cannot resolve: [DOCUMENT output]. Run Mode 3 analysis: root cause, architectural pressure points, recommend approach."
 
 ## Step 5: REPORT TO USER
 
-- Present oracle analysis
+- Present evaluator (Mode 3) analysis
 - Present options with effort estimates
 - Reference relevant `astro` skill sections if Astro-related
 - Ask user how to proceed

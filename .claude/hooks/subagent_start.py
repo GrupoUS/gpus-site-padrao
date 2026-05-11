@@ -19,7 +19,6 @@ AGENT_CONTEXT = {
     "explorer-agent":      "Codebase only | Grep+Glob+Read | paths+evidence | end with ## Context Handoff",
     "explorer":            "Codebase only | Grep+Glob+Read | paths+evidence | end with ## Context Handoff",
     "project-planner":     "D.R.P.I.V | atomic tasks | dependencies | end with ## Context Handoff",
-    "mobile-developer":    "Mobile-first | touch+perf+offline | end with ## Context Handoff",
     "evaluator":           "Adversarial | Mode1 plan / Mode2 sprint / Mode3 architecture | file:line evidence | end with ## Context Handoff",
     "librarian":           "External docs only | Tavily+Context7 | <2000 tokens | never touch FS | end with ## Context Handoff",
     "verification":        "Verify UI flows | Playwright MCP | screenshots+console+network evidence | end with ## Context Handoff",

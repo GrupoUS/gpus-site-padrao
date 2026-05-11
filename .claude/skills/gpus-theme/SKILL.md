@@ -8,6 +8,8 @@ description: Use when applying GPUS branding (Portal Grupo US) to other projects
 Portable design system from the Portal Grupo US project featuring a Navy/Gold color palette with complete light and dark theme support.
 
 > **Identity:** Navy backgrounds + Gold accents. Professional, premium, educational.
+>
+> **Boundary vs `grupo-us`.** This skill is the SSOT for **visual tokens** (HSL palette, shadcn vars, light/dark behavior, Tailwind v4 `@theme` block, motion/depth rules). For **content, product IDs, brand voice, copy in pt-BR, journey logic** load `grupo-us` instead. The two skills are complementary, never overlapping: pixels and tokens live here; data and language live there.
 
 ## Institutional site (`gpus` repo) vs portable theme
 

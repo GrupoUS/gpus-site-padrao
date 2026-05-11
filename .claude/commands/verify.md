@@ -1,5 +1,5 @@
 ---
-description: Post-implementation verification gate. Runs gates → /debug → /perf → E2E → spec → codex review → codex adversarial → evaluator Mode 3 → report → /evolve. Modes (positional arg) — default: full (10 phases) · quick: gates + /debug + spec only · spec-only: plan compliance only · paranoid: force all phases regardless of touched surface.
+description: Post-implementation verification gate. Runs gates → /debug → /perf → E2E → spec → codex review → codex adversarial → evaluator Mode 3 → report → /evolve. Modes (positional arg) — default: full (10 phases) · quick: gates + /debug + spec only · spec-only: plan compliance only · paranoid: force all phases regardless of touched surface · plan: self-audit of plan execution (.claude/-focused).
 workflow_type: prompt-chaining
 ---
 
@@ -9,7 +9,74 @@ workflow_type: prompt-chaining
 
 > Sequential verification pipeline. Each phase gates the next. Failure escalates per `_shared.md` and `debug.md` § 8.
 >
-> First positional arg = mode. `/verify`, `/verify quick`, `/verify spec-only`, `/verify paranoid`.
+> First positional arg = mode. `/verify`, `/verify quick`, `/verify spec-only`, `/verify paranoid`, `/verify plan`.
+
+---
+
+## Mode `plan` — Self-audit of plan execution
+
+> **Always run this at the END of any plan-driven session** to confirm that what was
+> proposed in the plan + asked in the original prompt actually shipped and still
+> works. Lightweight (~2s), no agent spawn, no codex.
+>
+> Optional positional arg: path to the plan file. Defaults to the newest `*.md`
+> under `docs/plans/` then `~/.claude/plans/`.
+
+### Invocation
+
+```bash
+python3 .claude/scripts/verify_plan_execution.py            # auto-pick newest plan
+python3 .claude/scripts/verify_plan_execution.py <path>     # explicit plan file
+```
+
+### What it checks
+
+| Check | Pass condition |
+|---|---|
+| `hooks_compile` | every `.py` in `.claude/hooks/` compiles (`py_compile`) |
+| `hooks_smoke` | every hook (except `_hook_utils.py`) returns exit 0 with empty stdin `{}` |
+| `agent_routing` | `.claude/scripts/verify_agent_routing.py` returns rc 0 (all agents have valid background/color/model) |
+| `oracle_audit_only` | references to `oracle` in active files are audit-trail markers only (former / superseded / replaces); files in `_archive/` and `logs/` exempt |
+| `no_foreign_abs_paths` | no `@/Users/<other>/` or `@/home/<other>/` in `commands/` or `agents/` (`_archive/` exempt) |
+| `no_placeholders` | no `<!-- Leave empty -->` markers remain in active `.md` files |
+| `tier1_size` | combined line count of root `AGENTS.md` + `.claude/CLAUDE.md` ≤ 500 |
+| `archive_readmes` | every `_archive/` directory ships a `README.md` documenting reason + restore command |
+| `required_sections` | plan body contains `## Context`, `## Phases`, `## Risks`, `## Verification` |
+| `cited_paths_exist` | every concrete path cited in the plan resolves to an existing file (active or archived by basename) |
+| `plan_checkboxes` | percentage of `- [ ]` boxes marked done; deferred items intentionally unchecked are surfaced as WARN |
+
+### Output
+
+- Markdown report printed to stdout AND saved to
+  `.claude/logs/verify-plan-<YYYYMMDD-HHMMSS>.md`.
+- Verdict (last block): `VERIFIED` (all PASS) / `VERIFIED-WITH-NOTES` (WARN only) /
+  `NEEDS-WORK` (any FAIL).
+- Exit code 0 (no FAIL) / 1 (any FAIL) / 2 (script error, e.g. plan not found).
+
+### When `/verify plan` says WARN
+
+Soft signals. Examples:
+- `cited_paths_exist` warns when a path was renamed during execution (e.g.
+  `agent-orchestrator.ts` → `agent-orchestrator-2026-05.ts` in archive). Acceptable.
+- `plan_checkboxes` warns when items were intentionally deferred (e.g. require user
+  decision). Inspect the unchecked list and confirm each is a real deferral.
+
+### When `/verify plan` says NEEDS-WORK
+
+A FAIL was raised. Fix the offending check before considering the work shipped:
+- Hook smoke fail → bug in `.claude/hooks/*.py` introduced by the edits.
+- Oracle audit-only fail → an active file still refers to oracle as a live agent.
+- Tier 1 size fail → `CLAUDE.md` or `AGENTS.md` grew past the 500-line budget.
+- Foreign abs paths fail → workflow file references a path on someone else's
+  machine (broken on yours).
+
+Re-run after the fix.
+
+### Integration into other modes
+
+`full` and `paranoid` modes append `/verify plan` as a silent final step when a
+plan file is present (auto-detected). `quick` and `spec-only` do NOT — invoke
+`/verify plan` explicitly if desired.
 
 ---
 
@@ -35,10 +102,11 @@ Parse first positional token from `$ARGUMENTS`:
 
 | Mode | Aliases | Behavior |
 |---|---|---|
-| `full` (default) | — | All 10 phases. Smart gating skips irrelevant phases by touched-surface signals. |
+| `full` (default) | — | All 10 phases. Smart gating skips irrelevant phases by touched-surface signals. Appends `plan` self-audit at the end if a plan file is present. |
 | `quick` | `q`, `fast` | Skip Phases 3, 3.5, 5, 6, 7, 9 — gates + /debug + spec only |
 | `spec-only` | `spec`, `compliance` | Phase 1 + Phase 4 + Phase 5 only |
-| `paranoid` | `release`, `pre-pr` | Force ALL phases regardless of touched surface |
+| `paranoid` | `release`, `pre-pr` | Force ALL phases regardless of touched surface + appends `plan` self-audit |
+| `plan` | `self`, `audit` | Self-audit only — runs `.claude/scripts/verify_plan_execution.py` against the newest plan file. See § "Mode `plan` — Self-audit" above. |
 
 `$ARGUMENTS` also accepts:
 

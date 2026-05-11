@@ -105,6 +105,16 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/plan_validator.py",
+            "timeout": 5
+          }
+        ]
       }
     ],
     "PermissionRequest": [
@@ -155,19 +165,9 @@
         ]
       }
     ],
-    "TeammateIdle": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "exit 0"
-          }
-        ]
-      }
-    ],
     "SubagentStart": [
       {
-        "matcher": "debugger|evaluator|explorer-agent|explorer|frontend-specialist|librarian|mobile-developer|performance-optimizer|project-planner|verification",
+        "matcher": "debugger|evaluator|explorer-agent|explorer|frontend-specialist|librarian|performance-optimizer|project-planner|verification",
         "hooks": [
           {
             "type": "command",

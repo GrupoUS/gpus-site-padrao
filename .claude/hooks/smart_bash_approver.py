@@ -3,6 +3,7 @@
 Receives JSON via stdin, outputs JSON decision.
 Trigger: PreToolUse (Bash)
 """
+from __future__ import annotations
 
 import json
 import re

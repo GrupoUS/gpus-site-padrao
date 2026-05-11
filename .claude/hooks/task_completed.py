@@ -3,19 +3,20 @@
 Trigger: TaskCompleted
 """
 import json
-import os
 import sys
 import typing
 
 from datetime import datetime, timezone
-from pathlib import Path
+
+from _hook_utils import get_log_dir, log_hook_error
 
 
 def read_input() -> dict[str, object]:
     try:
         raw = sys.stdin.read()
         return typing.cast(dict[str, object], json.loads(raw)) if raw.strip() else {}
-    except Exception:
+    except Exception as exc:
+        log_hook_error("task_completed.read_input", exc)
         return {}
 
 
@@ -28,10 +29,6 @@ def main() -> None:
     if not teammate_name:
         sys.exit(0)
 
-    project_dir = os.environ.get("CLAUDE_PROJECT_DIR") or str(Path(__file__).parent.parent.parent)
-    log_dir = Path(project_dir) / ".claude" / "logs"
-    log_dir.mkdir(parents=True, exist_ok=True)
-
     ts = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     entry = json.dumps({
         "timestamp": ts,
@@ -41,8 +38,11 @@ def main() -> None:
         "subject": task_subject,
     })
 
-    with (log_dir / "team-events.jsonl").open("a") as f:
-        _ = f.write(entry + "\n")
+    try:
+        with (get_log_dir() / "team-events.jsonl").open("a") as f:
+            _ = f.write(entry + "\n")
+    except Exception as exc:
+        log_hook_error("task_completed.write", exc)
 
 
 if __name__ == "__main__":

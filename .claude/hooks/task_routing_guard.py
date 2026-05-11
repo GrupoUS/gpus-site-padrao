@@ -3,6 +3,11 @@
 1. Validates subagent_type is in known list
 2. Enforces run_in_background for research agents when the runtime exposes it
 Trigger: PreToolUse (Agent) or Kilo task bridge
+
+This hook has NO filesystem dependency: it only reads JSON from stdin and
+emits a JSON allow/deny decision. It does not need `_hook_utils.resolve_project_dir`
+nor any log directory — keeping it stdlib-only keeps the startup hot path
+minimal.
 """
 
 import json
@@ -20,7 +25,6 @@ KNOWN_AGENTS = frozenset(
         "explorer-agent",
         "frontend-specialist",
         "librarian",
-        "mobile-developer",
         "orchestrator",
         "performance-optimizer",
         "project-planner",

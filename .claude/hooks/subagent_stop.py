@@ -13,13 +13,14 @@ Reads the transcript at most once per invocation. Fails open on any I/O error.
 Trigger: SubagentStop
 """
 import json
-import os
 import re
 import sys
 import typing
 
 from datetime import datetime, timezone
 from pathlib import Path
+
+from _hook_utils import get_log_dir, log_hook_error, safe_read_int
 
 # Built-in / lightweight agents whose completion is not worth logging.
 SKIP_TYPES = {"Explore", "general-purpose", "Bash"}
@@ -31,7 +32,6 @@ MONITORED_AGENTS = {
     "debugger",
     "frontend-specialist",
     "performance-optimizer",
-    "mobile-developer",
     "project-planner",
     "explorer-agent",
     "explorer",
@@ -47,19 +47,13 @@ def read_input() -> dict[str, object]:
     try:
         raw = sys.stdin.read()
         return typing.cast(dict[str, object], json.loads(raw)) if raw.strip() else {}
-    except Exception:
+    except Exception as exc:
+        log_hook_error("subagent_stop.read_input", exc)
         return {}
 
 
 def utcnow() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-
-
-def get_log_dir() -> Path:
-    project_dir = os.environ.get("CLAUDE_PROJECT_DIR") or str(Path(__file__).parent.parent.parent)
-    log_dir = Path(project_dir) / ".claude" / "logs"
-    log_dir.mkdir(parents=True, exist_ok=True)
-    return log_dir
 
 
 def main() -> None:
@@ -106,11 +100,7 @@ def main() -> None:
             counter_file = log_dir / "evaluator-failure-count.txt"
             log_file = log_dir / "evaluator-escalation.jsonl"
 
-            try:
-                count = int(counter_file.read_text().strip())
-            except Exception:
-                count = 0
-            count += 1
+            count = safe_read_int(counter_file, 0) + 1
             counter_file.write_text(str(count))
 
             entry = json.dumps({"timestamp": utcnow(), "agent": agent_type, "count": count})

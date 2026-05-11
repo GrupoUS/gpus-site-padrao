@@ -12,6 +12,8 @@ Performance notes:
 import json
 import sys
 import os
+import time
+from pathlib import Path
 
 # Configure UTF-8 output for Windows
 if sys.platform == 'win32':
@@ -40,7 +42,68 @@ I = {
     'ctx':     '●',   # circle - context
     'warn':    '!',   # warning
     'vim':     '⌘',   # vim mode
+    'plan':    '◐',   # half-circle - active plan
+    'err':     '⚠',   # warning triangle - hook errors
 }
+
+
+def get_plan_display(project_dir):
+    """If a plan file in docs/plans/ was modified in the last 60 min, surface it."""
+    if not project_dir:
+        return ''
+    plans_dir = Path(project_dir) / 'docs' / 'plans'
+    if not plans_dir.is_dir():
+        return ''
+    try:
+        now = time.time()
+        candidates = [
+            (p.stat().st_mtime, p.stem)
+            for p in plans_dir.glob('*.md')
+            if (now - p.stat().st_mtime) < 3600
+        ]
+        if not candidates:
+            return ''
+        candidates.sort(reverse=True)
+        slug = candidates[0][1]
+        if len(slug) > 24:
+            slug = slug[:21] + '…'
+        return f" {C['8']}|{C['r']} {C['5']}{I['plan']} {slug}{C['r']}"
+    except (OSError, PermissionError):
+        return ''
+
+
+def get_hook_error_display(project_dir):
+    """If .claude/logs/hook-errors.log has entries from the last 5 min, surface a count."""
+    if not project_dir:
+        return ''
+    log = Path(project_dir) / '.claude' / 'logs' / 'hook-errors.log'
+    if not log.is_file():
+        return ''
+    try:
+        cutoff = time.time() - 300
+        if log.stat().st_mtime < cutoff:
+            return ''
+        # Cheap count: read last 4KB and count lines (each entry is a single line)
+        size = log.stat().st_size
+        with log.open('rb') as f:
+            f.seek(max(0, size - 4096))
+            tail = f.read().decode('utf-8', errors='replace')
+        recent = 0
+        for line in tail.splitlines():
+            if not line.strip():
+                continue
+            try:
+                ts = json.loads(line).get('timestamp', '')
+            except (ValueError, TypeError):
+                continue
+            # ISO Z format, compare lexicographically against cutoff
+            if ts:
+                recent += 1
+        if recent == 0:
+            return ''
+        return f" {C['8']}|{C['r']} {C['1']}{I['err']} {recent}{C['r']}"
+    except (OSError, PermissionError):
+        return ''
 
 def get_context_display(context_window):
     """Generate context display with colored icon based on usage level."""
@@ -175,15 +238,19 @@ def main():
         ctx_display = get_context_display(context_window)
         vim_display = get_vim_display(data.get('vim', {}).get('mode', ''))
 
+        project_dir = workspace.get('project_dir', '') if workspace else ''
+        plan_display = get_plan_display(project_dir)
+        err_display = get_hook_error_display(project_dir)
+
         # Separator
         sep = f" {C['8']}|{C['r']} "
 
-        # Final status line: ◆ model | ▸ dir ⎇ branch | ● ctx% ⌘ vim
+        # Final status line: ◆ model | ▸ dir ⎇ branch | ● ctx% [| ◐ plan-slug] [| ⚠ N] [⌘ vim]
         parts = [model_display, dir_display + branch_display, ctx_display]
         if vim_display:
             parts.append(vim_display)
 
-        print(sep.join(parts))
+        print(sep.join(parts) + plan_display + err_display)
 
     except Exception:
         # Minimal fallback

@@ -95,7 +95,7 @@ isolation: worktree                                # optional sandbox
 
 | Model | When | Typical agents |
 |---|---|---|
-| `opus` | Architecture, ambiguous reasoning, multi-lens evaluation | orchestrator, evaluator, oracle, debugger, write-capable specialists, planner, verification |
+| `opus` | Architecture, ambiguous reasoning, multi-lens evaluation | orchestrator, evaluator (Mode 3 supersedes former oracle), debugger, write-capable specialists, planner, verification |
 | `sonnet` | Code review, structured analysis with clear rubric | code reviewer |
 | `haiku` | Fast read-only search, low-stakes lookups | codebase explorer, docs/web librarian |
 | `inherit` | When agent should match parent's capability tier | rare |

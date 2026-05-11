@@ -11,12 +11,13 @@ turn's system prompt.
 Trigger: SessionStart (startup | resume | compact)
 """
 import json
-import os
 import subprocess
 import sys
 import typing
 
 from pathlib import Path
+
+from _hook_utils import log_hook_error, resolve_project_dir
 
 
 def read_input() -> dict[str, object]:
@@ -25,8 +26,8 @@ def read_input() -> dict[str, object]:
         if select.select([sys.stdin], [], [], 0.2)[0]:
             raw = sys.stdin.read()
             return typing.cast(dict[str, object], json.loads(raw)) if raw.strip() else {}
-    except Exception:
-        pass
+    except Exception as exc:
+        log_hook_error("session_context.read_input", exc)
     return {}
 
 
@@ -41,26 +42,14 @@ def get_git_branch(project_dir: str) -> str:
         return "unknown"
 
 
-def get_project_dir() -> str:
-    if d := os.environ.get("CLAUDE_PROJECT_DIR"):
-        return d
-    try:
-        result = subprocess.run(
-            ["git", "rev-parse", "--show-toplevel"],
-            capture_output=True, text=True, timeout=3,
-        )
-        return result.stdout.strip() or os.getcwd()
-    except Exception:
-        return os.getcwd()
-
-
 def load_project_config(project_dir: str) -> dict[str, object]:
     config_path = Path(project_dir) / ".claude" / "config.json"
     if not config_path.is_file():
         return {}
     try:
         return typing.cast(dict[str, object], json.loads(config_path.read_text(errors="replace")))
-    except Exception:
+    except Exception as exc:
+        log_hook_error("session_context.load_project_config", exc)
         return {}
 
 
@@ -68,7 +57,7 @@ def main() -> None:
     data: dict[str, object] = read_input()
     source = str(data.get("source", "startup"))
 
-    project_dir = get_project_dir()
+    project_dir = resolve_project_dir()
     branch = get_git_branch(project_dir)
 
     config = load_project_config(project_dir)

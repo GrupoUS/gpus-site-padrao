@@ -153,6 +153,7 @@ Codebase search (`Grep` / `Read` / `Glob`) is the **fallback for internal questi
 - `.claude/rules/DESIGN.md` — universal design do/don't (color tokens, typography, components, layout, iconography, motion, imagery, depth, focus).
 - `.claude/rules/stability.md` — universal A–L checklist + render-mode invariants + CWV gates + smoke template + anti-patterns + debug triage.
 - `.claude/rules/seo.md` — universal locale, routes, sitemap, robots, OG/Twitter, JSON-LD shape, CWV thresholds, AI citation (GEO).
+- `.claude/rules/governance.md` — meta-rules: SSOT table, permissions precedence (`settings.json` vs `settings.local.json`), hook telemetry schemas, skill↔agent mapping, archive policy.
 
 ### Tech-stack skills (auto-trigger via skill description match)
 
@@ -166,6 +167,7 @@ Codebase search (`Grep` / `Read` / `Glob`) is the **fallback for internal questi
 ### Audit trail / governance
 
 - root `AGENTS.md` — behavioral + orchestrator (commands / agents / skills / MCPs / terminal / authority precedence). Cardinals + routing remain here in `CLAUDE.md`.
+- `.claude/_archive/` — agents and commands removed from active runtime but preserved for git history and rollback. Current contents: `agents/_archive/oracle.md` (superseded by `evaluator` Mode 3), `agents/_archive/mobile-developer.md` (out of scope for static Astro site), `_archive/gsd-2026-05/` (shadow workflow with broken absolute paths and zero project usage). See each `_archive/*/README.md` for restore instructions.
 - `docs/learnings-log.md` — chronological project decisions (append-only, on-demand).
 - `evals/` — autoresearch audit trail. `evals/README.md` for layout. `evals/site/<area>/compound.md` is durable brand-area memory between `/evolve` runs (consult before re-running same area). New skill autoresearch lands in `evals/<skill-slug>/runs/` with frozen harness + grades. `evals/_archive/` holds frozen 2026-03-26 skill-autoresearch snapshots already promoted to live skills (read-only).
 - `docs/` — product specs, design canon, implementation plans.
