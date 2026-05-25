@@ -1,0 +1,2 @@
+{"timestamp": "2026-05-11T20:49:44Z", "file": "/abs/docs/plans/test.md", "issues": ["content is 24 chars (< 400); plans should describe context, phases, risks, verification", "missing section heading '## Phases'", "missing section heading '## Risks'", "missing section heading '## Verification'"]}
+{"timestamp": "2026-05-11T20:52:13Z", "file": "/abs/docs/plans/2026-05-11-test.md", "issues": ["content is 284 chars (< 400); plans should describe context, phases, risks, verification"]}
